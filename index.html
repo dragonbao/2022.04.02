@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>demo</title>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="./jquery-3.2.1.min.js"></script>
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		.box1 {
+			width: 100px;
+			height: 100px;
+			background: linear-gradient(to right, #fcf, #bbb);
+		}
+	</style>
+</head>
+
+<body>
+	<div class="box1"></div>
+	<button class="startAnimate">animate!</button>
+	<button class="stopAnimate">stop!</button>
+	<button class="trig">自执行函数trigger</button>
+	<input type="text" placeholder="trigger neiger">
+	<input type="date">
+	<a class="w3c" href="https://developer.mozilla.org/zh-CN/">w3c school</a>
+	<div class="selfevent">self event !</div>
+	<button class="buttns">点击我给数组添加项！</button>
+	<div class="demov" style="text-align: center;width: 100%;height: 300px;background: #ccc;" >
+		<img src="./timg.jpg" alt="tupian" width="150" height="150">
+	</div>
+</body>
+<script type="text/javascript">
+	$(function () {
+		var arr = new Array(2, 3, 6, 8, 77);
+		$.each(arr, function (index, value) {
+			console.log(index, value);
+		})
+		console.log(arr.__proto__, Boolean(arr.__proto__ == Array.prototype));
+		$(".startAnimate").click(function () {
+			if (!$(".box1").is(":animated")) {
+				$(".box1").animate({ marginLeft: "+=40px" }, 2000)
+					.animate({ marginTop: "+=40px" }, 2000)
+				// console.log($(".box1").css("marginLeft"))
+			}
+		})
+		$(".stopAnimate").click(function () {
+			$(".box1").stop();
+		})
+		function callon(flag) {
+			alert("life alway hard?yes")
+		}
+		// $(".trig").click(callon);
+		// $(".trig").trigger("click");//trigger函数会自动执行click事件而不用手动触发.
+		$(".trig").on("dragon", function (event, name) {
+			console.log("this is a selfdefined math by  " + name);
+		})
+		$(".trig").trigger("dragon", "long");
+		$("input[type=text]").on("focus", function (e) {
+			var e = e || window.event;
+			e.preventDefault();//e.returnValue = false;
+			console.log(e)
+			// alert("input focus!");
+
+		});
+		$("input[type=text]").triggerHandler("focus");//trigger会触发focus默认事件，triggerHandler
+		//则不会触发该默认事件，而且trigger触发的默认事件不会因为
+		//event.preventDefault或window.event.returnValue false而取消.
+		//event.stopPropagation(); e.cancelBubble = true;
+		//jquery return false 会阻止冒泡和默认事件，js return false 只会阻止默认事件.
+		$(".w3c").on("click", function (e) {
+			var e = event || window.event;//firefox 没有event对象,使用e来代替.
+			e.preventDefault();
+		})
+
+		var obj = {
+			length: 3,
+			0: "longwei",
+			1: 23,
+			2: 1234354
+		};
+		// obj.length = 3;
+		var newarr = Array.prototype.slice.call(obj);
+		console.log(newarr);
+		var arr = [6, 9, 8, 10];
+		var newbee = arr.shift();
+		console.log(newbee);//得到的值是数组第一位数，即6.
+
+		///////$.each();
+		var obj3 = {
+			name: "dragon",
+			age: 23,
+			phone: 12458,
+			wanted: "jobs"
+		};
+		$.each(obj3, function (index, value) {
+			console.log(index, value, obj3);
+		})
+		$.each(arr, function (index, value, arr) {
+			console.log(index, value);
+		});
+		arr.forEach(function (value, index, arr) {
+			console.log(value, index, arr);
+		})
+		function add(a, b, c) {
+			   this.a = a;
+			   this.b = b;
+			   this.c = c;
+			console.log(a, b, c);
+			var sum = a + b + c;
+			return sum;
+		}
+		function reduce(a, b, c) {
+			var sum = a - b - c;
+			return sum;
+		}
+		console.log(add(23, 1, 1));
+		console.log(reduce(15, 2, 3));
+		var app = add.call(reduce, 5, 2, 3);
+		var app1 = reduce.call(add, 5, 2, 3);
+		console.log(app,app1);
+		var app3 = add.call(this,25,3,5);
+		console.log(app3);
+		var arr = [];
+		console.log(Boolean(arr.__proto__ === Array.prototype));
+		var date = new Date();
+		console.log(date);
+		var arr = [1,2,3,4.5,6];
+		// var st = arr.unshift(2);
+		// console.log(arr,st);
+		// arr.forEach((val,index)=>{
+		// 	console.log(index+":"+val);
+		// })
+		function add(newnumber){
+			arr.push(newnumber)
+			arr.forEach((val,index)=>{
+				console.log(index+":"+val);
+			})
+		};
+		$(".buttns").on("click",function(){
+			var num = Math.random()*3;
+			add(num);
+		})
+	})
+	// var selfeventele = document.getElementsByClassName("selfevent")[0];
+	// 	var myevent = document.createEvent("myselfEvent");
+	// 	evt.initEvent("customEvent",true,true);
+	// 	selfeventele.addEventListener("customEvent",function(){
+	// 		selfeventele.innerHTML = selfeventele.innerHTML+"dispatched now";
+	// 	})
+		// selfeventele.dispatchEvent(myevent);
+</script>
+
+</html>

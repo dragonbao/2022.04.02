@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./jquery-3.2.1.min.js"></script>
+    <title>获取服务器数据</title>
+</head>
+<body>
+    <div class="jsondata"></div>
+    <button class="btns">点击添加！</button>
+    <script>
+        window.onload=function(){
+            $.get("http://localhost:80/staplefood.php",function(data){
+            // $(".jsondata").html(data);
+            // alert(typeof(data))
+            console.log(data);
+            var multiarr = JSON.parse(data);
+            console.log(JSON.parse(data));
+            console.log(multiarr[0])
+        });
+            var arrobj = [
+            {name:"dragon",
+            age:12,
+            phone:15987},
+            {
+                name:"long",
+                age:20,
+                phone:1548
+            }
+            ];
+            arrobj.forEach((val,index)=>{
+                console.log(index,val)
+            })
+            var btns = document.getElementsByClassName("btns")[0];
+            btns.onclick = function(){
+                arrobj.push({name:'luo',age:154,phone:156844})
+                arrobj.forEach((val,index)=>{
+                console.log(index,val)
+            })
+                for(a in arrobj){
+                    console.log(typeof(a),arrobj[a]);
+                }
+            }
+            console.log(0.5-0.4);
+            console.log(0.4-0.3);
+            console.log(0.3-0.2);
+            console.log(0.2-0.1);
+            console.log(Boolean((0.3-0.2)==(0.2-0.1)));
+        }
+    </script>
+</body>
+</html>

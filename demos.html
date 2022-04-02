@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>let 与 闭包</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            width: 100%;
+            height: 600px;
+            background-color: aliceblue;
+        }
+
+        .bottom {
+            display: none;
+        }
+
+        .bottom1 {
+            background: #fdc;
+            display: block;
+        }
+
+        .top div:nth-child(2n) {
+            background: #bbc;
+        }
+
+        .top div:nth-child(2n-1) {
+            background: #b9c;
+        }
+        .total{
+            width: 50%;
+            height: 100px;
+            background: #bcb;
+        }
+        .total td:first-child{
+            background: #fdc;
+            border: 5px solid #505;
+        }
+        .total td:nth-of-type(2){
+            border: 5px solid #595;
+            background: #666;
+        }
+        .total td:nth-last-of-type(1){
+            border: 5px solid #5d5;
+            background: #bbc;
+        }
+        table{
+            border-collapse:separate;
+            border: none;
+            padding: 0;
+            margin: 0;
+            border-spacing:0;
+            /* cell-spacing:0; */
+        }
+        input[type=text]{
+            border: 5px solid #5d5;
+        }
+        .op{
+            width: 150px;
+            height: 150px;
+            background:#666;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="op">this a demos</div>
+    <button class="bdis">点击隐藏!</button>
+    <div class="container">
+        <div class="top">
+            <div>top1</div>
+            <div>top2</div>
+            <div>top3</div>
+            <div>top3</div>
+        </div>
+    </div>
+    <button id="btnc">dianjiwo</button>
+    <table class="total" >
+        <tbody>
+            <tr>
+                <td>总计</td>
+                <td>￥123</td>
+                <td>154</td>
+            </tr>
+        </tbody>
+    </table>
+    <input type="text" placeholder="i12334">
+    <script>
+        window.onload = function () {
+            var bt = document.getElementsByClassName("bdis")[0];
+            bt.onclick=function(){
+                var eld = document.getElementsByClassName("op")[0];
+                eld.style.display = "none";
+            }
+            var top = document.getElementsByClassName("top")[0];
+            var topchild = top.children;
+            for (var i = 0; i < topchild.length; i++) {
+                //    (function(i){
+                //        topchild[i].onclick = function(){
+                //            console.log(i);
+                //        }
+                //    })(i)
+                // topchild[i].onclick = b.call(func1,i);
+            }
+            function b(x) {
+                alert(i);
+            }
+            function func1(x) {
+                console.log(x);
+            }
+            // let b = 3;
+            let a = b % 1 !== 0;
+            console.log(a);
+
+            function g(x, y) {
+                return x + y;
+            }
+            function b(c, d) {
+                return c * d;
+            }
+            var z = b.call(null, 2, 3);
+            var h = g.call(b, 4, 5);
+            console.log(z, h);
+
+            var btn = document.getElementById("btnc");
+            btn.onclick = function () {
+                newarr[0].count += 1;
+                console.log(newarr);
+                console.log(arrOrigion);
+                newarra[1] += 2;
+                console.log(newarra, arra);
+
+            }
+            // 数组通过filter获得筛选后的数组，之后若改变数组内容 原数组对应的内容也会相应的改变 map不会。
+            var arrOrigion = [{ name: "long", count: 1, age: 23 }, { name: "wei", count: 2, age: 2 }, { name: "dragon", count: 3, age: 3 }];
+            var item = { name: "baby", count: 2, age: 12 };
+            var ishave = false;
+            for (let i = 0; i < arrOrigion.length; i++) {
+                if (arrOrigion[i].count == item.count) {
+                    ishave = true;
+                }
+            }
+            if (ishave) {
+                var newarr = arrOrigion.filter(function (a) {
+                    return a.count == item.count;
+                })
+                console.log(ishave, newarr);
+            }
+            var arra = [1, 2, 3, 4];
+            var newarra = arra.map(function (x) {
+                return Math.pow(x, 2);
+            })
+            // newarra[1]+=2;
+            console.log(newarra, arra);
+            console.log([].length);
+            var arrs = ["a","c","F","N",5,6,8,89,12,4];
+            arrs.sort(function(x,y){
+                if(x>y){
+                    return 1;
+                }
+                else{
+                    return -1;
+                }
+            });
+            var tr = {name:"long",age:12}
+            console.log(arrs);
+            console.log("mcnaskjin".substr(1))
+            console.log(tr['name'],tr['pdone'],Boolean(tr['phone'] == 'undefined'))
+
+            // =-====js 弹出框=====
+            // var conf = confirm("当前数目为0确认删除该项吗？");
+            // console.log(conf);
+            var prom = prompt("这是一个prompt框的title","prompt默认内容！");
+            console.log(prom);
+        }
+    </script>
+</body>
+
